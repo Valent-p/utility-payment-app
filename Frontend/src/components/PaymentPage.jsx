@@ -55,7 +55,7 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="amount">Payment Amount (KES)</label>
+            <label htmlFor="amount">Payment Amount (MWK)</label>
             <input
               type="number"
               id="amount"
@@ -96,7 +96,7 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
           <div className="info-item">
             <span className="info-label">Amount:</span>
             <span className="amount-due">
-              KES {parseFloat(success.transaction.amount).toFixed(2)}
+              MWK {parseFloat(success.transaction.amount).toFixed(2)}
             </span>
           </div>
           <div className="info-item">

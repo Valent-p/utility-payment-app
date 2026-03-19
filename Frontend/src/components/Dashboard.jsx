@@ -42,7 +42,7 @@ function Dashboard({ accountNumber, onPay, onLogout }) {
               <strong>Billing Month:</strong> {billData.billing_month}
             </p>
             <p>
-              <strong>Amount Due:</strong> KES {billData.amount_due}
+              <strong>Amount Due:</strong> MWK {billData.amount_due}
             </p>
             <p>
               <strong>Due Date:</strong> {billData.due_date}

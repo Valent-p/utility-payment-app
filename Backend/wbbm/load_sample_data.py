@@ -14,23 +14,23 @@ class Command(BaseCommand):
         customers_data = [
             {
                 'account_number': 'ACC001',
-                'name': 'John Musyoka',
-                'phone': '+254701234567',
-                'address': '123 Nairobi Street, Nairobi',
+                'name': 'Valentino Phiri',
+                'phone': '+265899001155',
+                'address': '123 Lilongwe Avenue, Lilongwe',
                 'meter_number': 'MTR001'
             },
             {
                 'account_number': 'ACC002',
-                'name': 'Jane Kipchoge',
-                'phone': '+254702345678',
-                'address': '456 Mombasa Road, Mombasa',
+                'name': 'Chimwemwe Banda',
+                'phone': '+265991234568',
+                'address': '456 Blantyre Road, Blantyre',
                 'meter_number': 'MTR002'
             },
             {
                 'account_number': 'ACC003',
-                'name': 'Peter Kariuki',
-                'phone': '+254703456789',
-                'address': '789 Kisumu Lane, Kisumu',
+                'name': 'Thokozani Moyo',
+                'phone': '+265888888888',
+                'address': '789 Mzuzu Drive, Mzuzu',
                 'meter_number': 'MTR003'
             },
         ]

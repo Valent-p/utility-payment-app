@@ -73,7 +73,7 @@ export default function TransactionHistory({ accountNumber }) {
                                 <div className="transaction-details">
                                     <div className="info-item" style={{ marginBottom: '5px', paddingBottom: '5px', borderBottom: 'none' }}>
                                         <span className="info-label">Amount:</span>
-                                        <span className="info-value">KES {parseFloat(transaction.amount).toFixed(2)}</span>
+                                        <span className="info-value">MWK {parseFloat(transaction.amount).toFixed(2)}</span>
                                     </div>
                                     <div className="info-item" style={{ marginBottom: '0', paddingBottom: '0', borderBottom: 'none' }}>
                                         <span className="info-label">Date:</span>
