@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchBill } from "../api";
 import "../styles/Dashboard.css";
 
-function Dashboard({ accountNumber, onPay, onLogout }) {
+function Dashboard({ accountNumber, onLogout }) {
+  const navigate = useNavigate();
   const [billData, setBillData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -38,26 +40,46 @@ function Dashboard({ accountNumber, onPay, onLogout }) {
 
         {!loading && billData ? (
           <div className="bill-section">
-            <p>
-              <strong>Billing Month:</strong> {billData.billing_month}
-            </p>
-            <p>
-              <strong>Amount Due:</strong> KES {billData.amount_due}
-            </p>
-            <p>
-              <strong>Due Date:</strong> {billData.due_date}
-            </p>
-            <p>
-              <strong>Status:</strong> {billData.status}
-            </p>
-            {billData.status === "unpaid" && (
-              <button onClick={onPay} className="btn-pay">
-                Pay Bill
-              </button>
-            )}
+            <div className="bill-card">
+              <div className="bill-header">
+                <h3>Bill for {billData.period || billData.billing_month}</h3>
+                <span className={`status-badge ${billData.status}`}>{billData.status.toUpperCase()}</span>
+              </div>
+              <div className="bill-details">
+                <div className="detail-item">
+                  <span className="label">Amount Due</span>
+                  <span className="value text-primary">MWK {billData.amount_due}</span>
+                </div>
+                <div className="detail-item">
+                  <span className="label">Due Date</span>
+                  <span className="value">{billData.due_date}</span>
+                </div>
+                {billData.meter_reading_previous && (
+                  <>
+                    <div className="detail-item">
+                      <span className="label">Prev Reading</span>
+                      <span className="value">{billData.meter_reading_previous} m³</span>
+                    </div>
+                    <div className="detail-item">
+                      <span className="label">Current Reading</span>
+                      <span className="value">{billData.meter_reading_current} m³</span>
+                    </div>
+                    <div className="detail-item">
+                      <span className="label">Consumption</span>
+                      <span className="value">{billData.consumption} m³</span>
+                    </div>
+                  </>
+                )}
+              </div>
+              {billData.status === "unpaid" && (
+                <button onClick={() => navigate("/payment")} className="btn-pay">
+                  Pay Now
+                </button>
+              )}
+            </div>
           </div>
         ) : (
-          !loading && <p>No outstanding bill found.</p>
+          !loading && <div className="no-bill"><p>No outstanding bill found.</p></div>
         )}
 
         <div style={{ marginTop: 16 }}>

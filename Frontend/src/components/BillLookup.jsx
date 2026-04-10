@@ -68,7 +68,7 @@ export default function BillLookup({ accountNumber }) {
               <div className="info-item">
                 <span className="info-label">Amount Due:</span>
                 <span className="amount-due">
-                  KES {parseFloat(billData.bill.amount_due).toFixed(2)}
+                  MWK {parseFloat(billData.bill.amount_due).toFixed(2)}
                 </span>
               </div>
               <div className="info-item">

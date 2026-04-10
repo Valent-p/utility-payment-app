@@ -88,9 +88,9 @@ GET /api/bill/<account_number>/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Valentino Phiri",
+    "phone": "+265899001155",
+    "address": "123 Lilongwe Avenue, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   },
@@ -125,7 +125,7 @@ POST /api/pay/
   "transaction": {
     "id": 1,
     "customer": 1,
-    "customer_name": "John Musyoka",
+    "customer_name": "Valentino Phiri",
     "customer_account_number": "ACC001",
     "amount": "2500.00",
     "payment_status": "success",
@@ -147,9 +147,9 @@ GET /api/transactions/<account_number>/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Valentino Phiri",
+    "phone": "+265899001155",
+    "address": "123 Lilongwe Avenue, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   },
@@ -157,7 +157,7 @@ GET /api/transactions/<account_number>/
     {
       "id": 1,
       "customer": 1,
-      "customer_name": "John Musyoka",
+      "customer_name": "Valentino Phiri",
       "customer_account_number": "ACC001",
       "amount": "2500.00",
       "payment_status": "success",
@@ -179,8 +179,8 @@ POST /api/customer/register/
 {
   "account_number": "ACC004",
   "name": "Jane Smith",
-  "phone": "+254701234567",
-  "address": "100 Main Street, Nairobi",
+  "phone": "+265991234567",
+  "address": "100 Main Street, Lilongwe",
   "meter_number": "MTR004"
 }
 ```
@@ -193,8 +193,8 @@ POST /api/customer/register/
     "id": 4,
     "account_number": "ACC004",
     "name": "Jane Smith",
-    "phone": "+254701234567",
-    "address": "100 Main Street, Nairobi",
+    "phone": "+265991234567",
+    "address": "100 Main Street, Lilongwe",
     "meter_number": "MTR004",
     "created_at": "2026-03-15T10:30:00Z"
   }
@@ -212,9 +212,9 @@ GET /api/customer/<account_number>/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Valentino Phiri",
+    "phone": "+265899001155",
+    "address": "123 Lilongwe Avenue, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   }
@@ -228,9 +228,9 @@ PUT /api/customer/<account_number>/update/
 **Request Body:**
 ```json
 {
-  "name": "John M. Musyoka",
-  "phone": "+254702234567",
-  "address": "456 Nairobi Street, Nairobi"
+  "name": "Valentino M. Phiri",
+  "phone": "+265899001155",
+  "address": "456 Lilongwe Avenue, Lilongwe"
 }
 ```
 **Response:**
@@ -241,9 +241,9 @@ PUT /api/customer/<account_number>/update/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John M. Musyoka",
-    "phone": "+254702234567",
-    "address": "456 Nairobi Street, Nairobi",
+    "name": "Valentino M. Phiri",
+    "phone": "+265899001155",
+    "address": "456 Lilongwe Avenue, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   }
@@ -357,23 +357,23 @@ updateCustomerProfile(accountNumber, customerData) // Update profile
 
 The system comes with 3 sample customers and bills:
 
-1. **John Musyoka** (ACC001)
-   - Phone: +254701234567
-   - Address: 123 Nairobi Street, Nairobi
+1. **Valentino Phiri** (ACC001)
+   - Phone: +265899001155
+   - Address: 123 Lilongwe Avenue, Lilongwe
    - Meter: MTR001
-   - Outstanding Bill: 2500.00 KES
+   - Outstanding Bill: 2500.00 MWK
 
-2. **Jane Kipchoge** (ACC002)
-   - Phone: +254702345678
-   - Address: 456 Mombasa Road, Mombasa
+2. **Chimwemwe Banda** (ACC002)
+   - Phone: +265991234568
+   - Address: 456 Blantyre Road, Blantyre
    - Meter: MTR002
-   - Outstanding Bill: 2500.00 KES
+   - Outstanding Bill: 2500.00 MWK
 
-3. **Peter Kariuki** (ACC003)
-   - Phone: +254703456789
-   - Address: 789 Kisumu Lane, Kisumu
+3. **Thokozani Moyo** (ACC003)
+   - Phone: +265888888888
+   - Address: 789 Mzuzu Drive, Mzuzu
    - Meter: MTR003
-   - Outstanding Bill: 2500.00 KES
+   - Outstanding Bill: 2500.00 MWK
 
 ---
 

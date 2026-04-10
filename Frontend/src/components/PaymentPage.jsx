@@ -42,39 +42,46 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
           👉 Please lookup a bill first to proceed with payment.
         </div>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="account">Account Number</label>
-            <input
-              type="text"
-              id="account"
-              value={accountNumber}
-              disabled
-              style={{ backgroundColor: "#f0f0f0" }}
-            />
+        <div className="paychangu-simulation">
+          <div className="paychangu-header" style={{ textAlign: "center", marginBottom: "20px" }}>
+            <h2 style={{ color: "#00b2a9" }}>PayChangu</h2>
+            <p>Secure Checkout Simulation</p>
           </div>
+          <form onSubmit={handleSubmit} style={{ border: "1px solid #ccc", padding: "20px", borderRadius: "8px", backgroundColor: "#fafafa" }}>
+            <div className="form-group">
+              <label htmlFor="account">Utility Account Number</label>
+              <input
+                type="text"
+                id="account"
+                value={accountNumber}
+                disabled
+                style={{ backgroundColor: "#e9ecef" }}
+              />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="amount">Payment Amount (KES)</label>
-            <input
-              type="number"
-              id="amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount to pay"
-              step="0.01"
-              disabled={loading}
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="amount">Amount to Pay (MWK)</label>
+              <input
+                type="number"
+                id="amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Enter amount (e.g. 5000)"
+                step="0.01"
+                disabled={loading}
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={loading || !accountNumber}
-          >
-            {loading ? "Processing Payment..." : "Pay Bill"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading || !accountNumber || !amount}
+              style={{ width: "100%", backgroundColor: "#00b2a9", border: "none", marginTop: "10px" }}
+            >
+              {loading ? "Processing via PayChangu..." : `Pay MWK ${amount || "0"}`}
+            </button>
+          </form>
+        </div>
       )}
 
       {error && <div className="alert alert-error">{error}</div>}
@@ -96,7 +103,7 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
           <div className="info-item">
             <span className="info-label">Amount:</span>
             <span className="amount-due">
-              KES {parseFloat(success.transaction.amount).toFixed(2)}
+              MWK {parseFloat(success.transaction.amount).toFixed(2)}
             </span>
           </div>
           <div className="info-item">

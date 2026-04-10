@@ -27,7 +27,13 @@ def get_bill(request, account_number):
             return Response({
                 'success': True,
                 'customer': CustomerSerializer(customer).data,
-                'bill': BillDetailSerializer(bill).data,
+                'bill': {
+                    **BillDetailSerializer(bill).data,
+                    'meter_reading_previous': 1240.5, # Simulated readings
+                    'meter_reading_current': 1255.2,
+                    'consumption': 14.7,
+                    'period': bill.billing_month.strftime('%B %Y')
+                },
             })
         else:
             # If no unpaid bill, return all paid info
@@ -64,28 +70,36 @@ def process_payment(request):
         amount = float(amount)
         customer = Customer.objects.get(account_number=account_number)
         
-        # Generate payment reference (simulating PayChangu)
-        payment_reference = f"PAY-{uuid.uuid4().hex[:10].upper()}"
+        # In a real PayChangu flow, we would call their API to get a checkout URL.
+        # Here we simulate that by generating a reference and assuming success for MVP.
+        payment_reference = f"CHG-{uuid.uuid4().hex[:12].upper()}"
         
-        # Create transaction record
+        # Create transaction record as 'pending' initially in a real system
+        # Here we immediately mark as 'success' to simplify the MVP flow
         transaction = Transaction.objects.create(
             customer=customer,
             amount=amount,
-            payment_status='success',  # Simulating successful payment
+            payment_status='success', 
             payment_reference=payment_reference
         )
         
         # Mark corresponding bill as paid
         bill = Bill.objects.filter(customer=customer, status='unpaid').first()
-        if bill and bill.amount_due <= amount:
-            bill.status = 'paid'
-            bill.save()
+        if bill:
+            # If payment covers at least the amount due, mark as paid
+            if amount >= float(bill.amount_due):
+                bill.status = 'paid'
+                bill.save()
+            else:
+                # Handle partial payment if needed (out of scope for MVP?)
+                pass
         
         return Response({
             'success': True,
-            'message': 'Payment processed successfully',
+            'message': 'Payment processed successfully via PayChangu (Simulated)',
+            'redirect_url': 'http://localhost:5173/dashboard?status=success', # Simulated return
             'transaction': TransactionSerializer(transaction).data,
-            'bill_status': 'paid' if bill else 'no_bill',
+            'bill_status': 'paid' if bill and bill.status == 'paid' else 'unpaid',
         }, status=status.HTTP_201_CREATED)
         
     except Customer.DoesNotExist:

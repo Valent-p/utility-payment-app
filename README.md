@@ -103,9 +103,9 @@ GET /api/bill/<account_number>/
     "customer": {
         "id": 1,
         "account_number": "ACC001",
-        "name": "John Musyoka",
-        "phone": "+254701234567",
-        "address": "123 Nairobi Street, Nairobi",
+        "name": "Valentino Phiri",
+        "phone": "+265899001155",
+        "address": "123 Lilongwe Avenue, Lilongwe",
         "meter_number": "MTR001",
         "created_at": "2026-03-15T10:30:00Z"
     },
@@ -157,7 +157,7 @@ Content-Type: application/json
     "transaction": {
         "id": 1,
         "customer": 1,
-        "customer_name": "John Musyoka",
+        "customer_name": "Valentino Phiri",
         "customer_account_number": "ACC001",
         "amount": "2500.00",
         "payment_status": "success",
@@ -188,9 +188,9 @@ GET /api/transactions/<account_number>/
     "customer": {
         "id": 1,
         "account_number": "ACC001",
-        "name": "John Musyoka",
-        "phone": "+254701234567",
-        "address": "123 Nairobi Street, Nairobi",
+        "name": "Valentino Phiri",
+        "phone": "+265899001155",
+        "address": "123 Lilongwe Avenue, Lilongwe",
         "meter_number": "MTR001",
         "created_at": "2026-03-15T10:30:00Z"
     },
@@ -198,7 +198,7 @@ GET /api/transactions/<account_number>/
         {
             "id": 1,
             "customer": 1,
-            "customer_name": "John Musyoka",
+            "customer_name": "Valentino Phiri",
             "customer_account_number": "ACC001",
             "amount": "2500.00",
             "payment_status": "success",
@@ -208,7 +208,7 @@ GET /api/transactions/<account_number>/
         {
             "id": 2,
             "customer": 1,
-            "customer_name": "John Musyoka",
+            "customer_name": "Valentino Phiri",
             "customer_account_number": "ACC001",
             "amount": "1500.00",
             "payment_status": "success",
@@ -305,9 +305,9 @@ The following customers are pre-loaded:
 
 | Account # | Name | Phone | Address | Meter # | Outstanding Bill |
 |-----------|------|-------|---------|---------|------------------|
-| ACC001 | John Musyoka | +254701234567 | 123 Nairobi Street, Nairobi | MTR001 | KES 2,500.00 |
-| ACC002 | Jane Kipchoge | +254702345678 | 456 Mombasa Road, Mombasa | MTR002 | KES 2,500.00 |
-| ACC003 | Peter Kariuki | +254703456789 | 789 Kisumu Lane, Kisumu | MTR003 | KES 2,500.00 |
+| ACC001 | Valentino Phiri | +265899001155 | 123 Lilongwe Avenue, Lilongwe | MTR001 | MWK 2,500.00 |
+| ACC002 | Chimwemwe Banda | +265991234568 | 456 Blantyre Road, Blantyre | MTR002 | MWK 2,500.00 |
+| ACC003 | Thokozani Moyo | +265888888888 | 789 Mzuzu Drive, Mzuzu | MTR003 | MWK 2,500.00 |
 
 Use any of these account numbers to test the application.
 

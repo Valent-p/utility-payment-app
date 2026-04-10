@@ -26,16 +26,16 @@ curl http://localhost:8000/api/bill/ACC001/
     "customer": {
         "id": 1,
         "account_number": "ACC001",
-        "name": "John Musyoka",
-        "phone": "+254701234567",
-        "address": "123 Nairobi Street, Nairobi",
+        "name": "Kondwani Phiri",
+        "phone": "+265701234567",
+        "address": "123 Lilongwe Street, Lilongwe",
         "meter_number": "MTR001",
         "created_at": "2026-03-15T10:30:45.123456Z"
     },
     "bill": {
         "id": 1,
         "customer": 1,
-        "customer_name": "John Musyoka",
+        "customer_name": "Kondwani Phiri",
         "customer_account_number": "ACC001",
         "billing_month": "2026-03-01",
         "amount_due": "2500.00",
@@ -53,9 +53,9 @@ curl http://localhost:8000/api/bill/ACC001/
     "customer": {
         "id": 1,
         "account_number": "ACC001",
-        "name": "John Musyoka",
-        "phone": "+254701234567",
-        "address": "123 Nairobi Street, Nairobi",
+        "name": "Kondwani Phiri",
+        "phone": "+265701234567",
+        "address": "123 Lilongwe Street, Lilongwe",
         "meter_number": "MTR001",
         "created_at": "2026-03-15T10:30:45.123456Z"
     },
@@ -108,7 +108,7 @@ curl -X POST http://localhost:8000/api/pay/ \
     "transaction": {
         "id": 1,
         "customer": 1,
-        "customer_name": "John Musyoka",
+        "customer_name": "Kondwani Phiri",
         "customer_account_number": "ACC001",
         "amount": "2500.00",
         "payment_status": "success",
@@ -127,7 +127,7 @@ curl -X POST http://localhost:8000/api/pay/ \
     "transaction": {
         "id": 2,
         "customer": 1,
-        "customer_name": "John Musyoka",
+        "customer_name": "Kondwani Phiri",
         "customer_account_number": "ACC001",
         "amount": "1000.00",
         "payment_status": "success",
@@ -183,9 +183,9 @@ curl http://localhost:8000/api/transactions/ACC001/
     "customer": {
         "id": 1,
         "account_number": "ACC001",
-        "name": "John Musyoka",
-        "phone": "+254701234567",
-        "address": "123 Nairobi Street, Nairobi",
+        "name": "Kondwani Phiri",
+        "phone": "+265701234567",
+        "address": "123 Lilongwe Street, Lilongwe",
         "meter_number": "MTR001",
         "created_at": "2026-03-15T10:30:45.123456Z"
     },
@@ -193,7 +193,7 @@ curl http://localhost:8000/api/transactions/ACC001/
         {
             "id": 1,
             "customer": 1,
-            "customer_name": "John Musyoka",
+            "customer_name": "Kondwani Phiri",
             "customer_account_number": "ACC001",
             "amount": "2500.00",
             "payment_status": "success",
@@ -203,7 +203,7 @@ curl http://localhost:8000/api/transactions/ACC001/
         {
             "id": 2,
             "customer": 1,
-            "customer_name": "John Musyoka",
+            "customer_name": "Kondwani Phiri",
             "customer_account_number": "ACC001",
             "amount": "1500.00",
             "payment_status": "success",
@@ -221,9 +221,9 @@ curl http://localhost:8000/api/transactions/ACC001/
     "customer": {
         "id": 2,
         "account_number": "ACC002",
-        "name": "Jane Kipchoge",
-        "phone": "+254702345678",
-        "address": "456 Mombasa Road, Mombasa",
+        "name": "Tinenenji Banda",
+        "phone": "+265702345678",
+        "address": "456 Blantyre Road, Blantyre",
         "meter_number": "MTR002",
         "created_at": "2026-03-15T10:30:45.123456Z"
     },
@@ -315,7 +315,7 @@ async function getHistory(accountNumber) {
             console.log(`Total Transactions: ${data.transactions.length}`);
             
             data.transactions.forEach((txn, index) => {
-                console.log(`${index + 1}. ${txn.payment_reference} - KES ${txn.amount} (${txn.payment_status})`);
+                console.log(`${index + 1}. ${txn.payment_reference} - MWK ${txn.amount} (${txn.payment_status})`);
             });
         } else {
             console.error('Error:', data.message);
@@ -383,6 +383,6 @@ All responses follow this format:
 ## Quick Test Account Numbers
 
 Use these pre-loaded test accounts:
-- `ACC001` - John Musyoka (KES 2,500 outstanding)
-- `ACC002` - Jane Kipchoge (KES 2,500 outstanding)
-- `ACC003` - Peter Kariuki (KES 2,500 outstanding)
+- `ACC001` - Kondwani Phiri (MWK 2,500 outstanding)
+- `ACC002` - Tinenenji Banda (MWK 2,500 outstanding)
+- `ACC003` - Mayamiko Chiumia (MWK 2,500 outstanding)
