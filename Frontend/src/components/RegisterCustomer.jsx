@@ -116,7 +116,7 @@ function RegisterCustomer({ onRegister }) {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                placeholder="Kondwani Phiri"
                 required
               />
             </div>
@@ -128,7 +128,7 @@ function RegisterCustomer({ onRegister }) {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+254701234567"
+                placeholder="+265881234567"
                 required
               />
             </div>

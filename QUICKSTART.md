@@ -101,9 +101,9 @@ from django.utils import timezone
 # Customer 1
 c1 = Customer.objects.create(
     account_number='ACC001',
-    name='John Musyoka',
-    phone='+254701234567',
-    address='123 Nairobi Street, Nairobi',
+    name='Kondwani Phiri',
+    phone='+265701234567',
+    address='123 Lilongwe Street, Lilongwe',
     meter_number='MTR001'
 )
 
@@ -144,7 +144,7 @@ You'll see 5 tabs:
 2. Fill in the form:
    - Account Number: `ACC999`
    - Name: `Your Name`
-   - Phone: `+254701234567`
+   - Phone: `+265701234567`
    - Address: `Your Address`
    - Meter Number: `MTR999`
 3. Click **Register Account**
@@ -257,7 +257,7 @@ curl -X POST http://localhost:8000/api/pay/ \
 ```bash
 curl -X POST http://localhost:8000/api/customer/register/ \
   -H "Content-Type: application/json" \
-  -d '{"account_number":"ACC005","name":"Test User","phone":"+254701234567","address":"Test Address","meter_number":"MTR005"}'
+  -d '{"account_number":"ACC005","name":"Test User","phone":"+265701234567","address":"Test Address","meter_number":"MTR005"}'
 ```
 
 ---
@@ -294,9 +294,9 @@ If you loaded sample data, these accounts are pre-created:
 
 | Account | Name          | Phone         | Meter  | Balance |
 | ------- | ------------- | ------------- | ------ | ------- |
-| ACC001  | John Musyoka  | +254701234567 | MTR001 | 2500.00 |
-| ACC002  | Jane Kipchoge | +254702345678 | MTR002 | 2500.00 |
-| ACC003  | Peter Kariuki | +254703456789 | MTR003 | 2500.00 |
+| ACC001  | Kondwani Phiri  | +265701234567 | MTR001 | 2500.00 |
+| ACC002  | Tinenenji Banda | +265702345678 | MTR002 | 2500.00 |
+| ACC003  | Mayamiko Chiumia | +265703456789 | MTR003 | 2500.00 |
 
 ---
 

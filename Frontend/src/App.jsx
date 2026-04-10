@@ -86,7 +86,7 @@ export default function App() {
             path="/dashboard"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Dashboard accountNumber={accountNumber} onPay={() => {}} onLogout={handleLogout} />
+                <Dashboard accountNumber={accountNumber} onLogout={handleLogout} />
               </ProtectedRoute>
             }
           />

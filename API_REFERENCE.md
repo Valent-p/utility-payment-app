@@ -38,9 +38,9 @@ curl -X POST http://localhost:8000/api/customer/register/ \
   -H "Content-Type: application/json" \
   -d '{
     "account_number": "ACC004",
-    "name": "Jane Smith",
-    "phone": "+254701234567",
-    "address": "100 Main Street, Nairobi",
+    "name": "Chikondi Phiri",
+    "phone": "+265701234567",
+    "address": "100 Main Street, Lilongwe",
     "meter_number": "MTR004"
   }'
 ```
@@ -54,9 +54,9 @@ curl -X POST http://localhost:8000/api/customer/register/ \
   "customer": {
     "id": 4,
     "account_number": "ACC004",
-    "name": "Jane Smith",
-    "phone": "+254701234567",
-    "address": "100 Main Street, Nairobi",
+    "name": "Chikondi Phiri",
+    "phone": "+265701234567",
+    "address": "100 Main Street, Lilongwe",
     "meter_number": "MTR004",
     "created_at": "2026-03-15T10:30:00Z"
   }
@@ -92,9 +92,9 @@ curl http://localhost:8000/api/customer/ACC001/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Kondwani Phiri",
+    "phone": "+265701234567",
+    "address": "123 Lilongwe Street, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   }
@@ -123,8 +123,8 @@ curl -X PUT http://localhost:8000/api/customer/ACC001/update/ \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John M. Musyoka",
-    "phone": "+254702234567",
-    "address": "456 Nairobi Street, Nairobi"
+    "phone": "+265702234567",
+    "address": "456 Lilongwe Street, Lilongwe"
   }'
 ```
 
@@ -138,8 +138,8 @@ curl -X PUT http://localhost:8000/api/customer/ACC001/update/ \
     "id": 1,
     "account_number": "ACC001",
     "name": "John M. Musyoka",
-    "phone": "+254702234567",
-    "address": "456 Nairobi Street, Nairobi",
+    "phone": "+265702234567",
+    "address": "456 Lilongwe Street, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   }
@@ -166,16 +166,16 @@ curl http://localhost:8000/api/bill/ACC001/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Kondwani Phiri",
+    "phone": "+265701234567",
+    "address": "123 Lilongwe Street, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   },
   "bill": {
     "id": 1,
     "customer": 1,
-    "customer_name": "John Musyoka",
+    "customer_name": "Kondwani Phiri",
     "customer_account_number": "ACC001",
     "billing_month": "2026-03-01",
     "amount_due": "2500.00",
@@ -223,7 +223,7 @@ curl -X POST http://localhost:8000/api/pay/ \
   "transaction": {
     "id": 1,
     "customer": 1,
-    "customer_name": "John Musyoka",
+    "customer_name": "Kondwani Phiri",
     "customer_account_number": "ACC001",
     "amount": "2500.00",
     "payment_status": "success",
@@ -263,9 +263,9 @@ curl http://localhost:8000/api/transactions/ACC001/
   "customer": {
     "id": 1,
     "account_number": "ACC001",
-    "name": "John Musyoka",
-    "phone": "+254701234567",
-    "address": "123 Nairobi Street, Nairobi",
+    "name": "Kondwani Phiri",
+    "phone": "+265701234567",
+    "address": "123 Lilongwe Street, Lilongwe",
     "meter_number": "MTR001",
     "created_at": "2026-03-15T10:00:00Z"
   },
@@ -273,7 +273,7 @@ curl http://localhost:8000/api/transactions/ACC001/
     {
       "id": 1,
       "customer": 1,
-      "customer_name": "John Musyoka",
+      "customer_name": "Kondwani Phiri",
       "customer_account_number": "ACC001",
       "amount": "2500.00",
       "payment_status": "success",
@@ -283,7 +283,7 @@ curl http://localhost:8000/api/transactions/ACC001/
     {
       "id": 2,
       "customer": 1,
-      "customer_name": "John Musyoka",
+      "customer_name": "Kondwani Phiri",
       "customer_account_number": "ACC001",
       "amount": "1500.00",
       "payment_status": "success",
@@ -351,8 +351,8 @@ curl -X POST http://localhost:8000/api/customer/register/ \
   -d '{
     "account_number": "ACC010",
     "name": "Alice Johnson",
-    "phone": "+254700123456",
-    "address": "150 Industrial Area, Nairobi",
+    "phone": "+265700123456",
+    "address": "150 Industrial Area, Lilongwe",
     "meter_number": "MTR010"
   }'
 
@@ -363,7 +363,7 @@ curl http://localhost:8000/api/customer/ACC010/
 curl -X PUT http://localhost:8000/api/customer/ACC010/update/ \
   -H "Content-Type: application/json" \
   -d '{
-    "phone": "+254719876543"
+    "phone": "+265719876543"
   }'
 ```
 
