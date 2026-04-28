@@ -91,8 +91,6 @@ def process_payment(request):
                 'tx_ref': tx_ref,
                 'amount': amount,
                 'currency': 'MWK',
-                'callback_url': "http://localhost:5173/dashboard",
-                'return_url': "http://localhost:5173/payment",
                 'customer': {
                     'email': f"{customer.account_number}@utility.mw", # Placeholder email
                     'first_name': customer.name.split(' ')[0],

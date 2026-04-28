@@ -19,6 +19,8 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
 
     window.PaychanguCheckout({
       ...config,
+      callback_url: window.location.origin + "/dashboard",
+      return_url: window.location.origin + "/payment",
       callback: async (response) => {
         setLoading(true);
         try {
