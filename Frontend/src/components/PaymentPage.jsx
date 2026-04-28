@@ -6,20 +6,9 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(null);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
+  // Paychangu script is now loaded in index.html
+  const scriptLoaded = !!window.PaychanguCheckout;
 
-  // Load Paychangu script dynamically
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://in.paychangu.com/js/popup.js";
-    script.async = true;
-    script.onload = () => setScriptLoaded(true);
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   const handlePaychanguCheckout = (config) => {
     if (!window.PaychanguCheckout) {
@@ -88,7 +77,7 @@ export default function PaymentPage({ accountNumber, onPaymentSuccess }) {
       <h2>Secure Bill Payment</h2>
 
       {error && (
-        <div className="alert alert-error" style={{ marginBottom: "20px" }}>
+        <div className="alert alert-error" style={{ marginBottom: "20px", textAlign: "center" }}>
           <strong>Error:</strong> {error}
         </div>
       )}

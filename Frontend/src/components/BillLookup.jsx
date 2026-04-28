@@ -37,7 +37,7 @@ export default function BillLookup({ accountNumber }) {
           <p>Fetching your bill...</p>
         </div>
       ) : error ? (
-        <div className="alert alert-error">{error}</div>
+        <div className="alert alert-error" style={{ textAlign: "center" }}>{error}</div>
       ) : billData ? (
         <div className="customer-info">
           <h3>Customer Details</h3>

@@ -45,7 +45,7 @@ export default function TransactionHistory({ accountNumber }) {
                 </button>
             </div>
 
-            {error && <div className="alert alert-error">{error}</div>}
+            {error && <div className="alert alert-error" style={{ textAlign: "center" }}>{error}</div>}
 
             {loading && (
                 <div className="loading">

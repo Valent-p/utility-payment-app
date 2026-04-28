@@ -11,15 +11,11 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import './index.css';
 
 export default function App() {
-  const [accountNumber, setAccountNumber] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [accountNumber, setAccountNumber] = useState(() => localStorage.getItem('accountNumber') || '');
+  const [loggedIn, setLoggedIn] = useState(() => !!localStorage.getItem('accountNumber'));
 
   useEffect(() => {
-    const acc = localStorage.getItem('accountNumber');
-    if (acc) {
-      setAccountNumber(acc);
-      setLoggedIn(true);
-    }
+    // Optional: any other initialization logic
   }, []);
 
   const handleLogin = (accNum) => {
@@ -70,7 +66,7 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<Navigate to={loggedIn ? '/dashboard' : '/login'} replace />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/login" element={loggedIn ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />} />
           <Route path="/register" element={<RegisterCustomer onRegister={handleLogin} />} />
           <Route 
             path="/lookup" 
