@@ -10,28 +10,11 @@ function Dashboard({ accountNumber, onLogout }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const txRef = query.get("tx_ref");
-
     const load = async () => {
       if (!accountNumber) return;
       setLoading(true);
       setError("");
       
-      // If we landed here with a tx_ref, it means a redirect happened
-      if (txRef) {
-        try {
-          const { verifyPayment } = await import("../api");
-          const verifyRes = await verifyPayment(txRef);
-          if (verifyRes.success) {
-            // Remove the query param from URL without refreshing
-            window.history.replaceState({}, document.title, window.location.pathname);
-          }
-        } catch (vErr) {
-          console.error("Verification failed from redirect", vErr);
-        }
-      }
-
       try {
         const res = await fetchBill(accountNumber);
         if (res.success) setBillData(res.bill);

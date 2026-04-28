@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchBill } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export default function BillLookup({ accountNumber }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [billData, setBillData] = useState(null);
@@ -76,7 +78,7 @@ export default function BillLookup({ accountNumber }) {
                 <span className="info-value">{billData.bill.status.toUpperCase()}</span>
               </div>
               <div className="button-group">
-                <button className="btn btn-pay">Pay Now</button>
+                <button onClick={() => navigate("/payment")} className="btn btn-pay">Pay Now</button>
               </div>
             </div>
           ) : (

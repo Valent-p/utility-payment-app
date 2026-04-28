@@ -137,11 +137,17 @@ def verify_payment(request):
             'Accept': 'application/json',
         }
         verify_url = f"{settings.PAYCHANGU_BASE_URL}/verify-payment/{tx_ref}"
+        print(f"DEBUG: Verifying payment at {verify_url}")
         
         response = requests.get(verify_url, headers=headers)
         res_data = response.json()
+        print(f"DEBUG: Paychangu Response: {res_data}")
 
-        if response.status_code == 200 and res_data.get('status') == 'success':
+        # Check for success in both status and nested data status
+        status_val = res_data.get('status', '').lower()
+        data_status = res_data.get('data', {}).get('status', '').lower()
+        
+        if response.status_code == 200 and (status_val == 'success' or data_status == 'success'):
             # 2. Update transaction status
             try:
                 transaction = Transaction.objects.get(payment_reference=tx_ref)

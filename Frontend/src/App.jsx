@@ -30,6 +30,29 @@ export default function App() {
     setLoggedIn(false);
   };
 
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const txRef = query.get("tx_ref");
+    if (txRef && loggedIn) {
+      const verify = async () => {
+        try {
+          const { verifyPayment } = await import('./api');
+          const res = await verifyPayment(txRef);
+          if (res.success) {
+            alert("Payment Successful! Your bill has been updated.");
+            // Refresh account number to trigger data re-loads
+            setAccountNumber(prev => prev); 
+            // Clean URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
+        } catch (err) {
+          console.error("Verification error:", err);
+        }
+      };
+      verify();
+    }
+  }, [loggedIn]);
+
   const handleBillFound = (accNum) => {
     setAccountNumber(accNum);
   };
