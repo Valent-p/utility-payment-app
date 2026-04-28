@@ -33,6 +33,26 @@ export const processPayment = async (accountNumber, amount) => {
   }
 };
 
+export const verifyPayment = async (txRef) => {
+  try {
+    const response = await fetch(`${API_URL}/verify-payment/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tx_ref: txRef,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Payment verification failed");
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const fetchTransactions = async (accountNumber) => {
   try {
     const response = await fetch(`${API_URL}/transactions/${accountNumber}/`);

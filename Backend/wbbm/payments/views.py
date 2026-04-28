@@ -4,6 +4,8 @@ from rest_framework import status
 from django.utils import timezone
 from datetime import datetime
 import uuid
+import requests
+from django.conf import settings
 from customers.models import Customer
 from customers.serializers import CustomerSerializer
 from billing.models import Bill
@@ -53,7 +55,7 @@ def get_bill(request, account_number):
 @api_view(['POST'])
 def process_payment(request):
     """
-    Process payment - simulate PayChangu payment.
+    Process payment initiation - return config for PayChangu Inline.
     POST /api/pay
     Expected body: {account_number, amount}
     """
@@ -70,37 +72,113 @@ def process_payment(request):
         amount = float(amount)
         customer = Customer.objects.get(account_number=account_number)
         
-        # In a real PayChangu flow, we would call their API to get a checkout URL.
-        # Here we simulate that by generating a reference and assuming success for MVP.
-        payment_reference = f"CHG-{uuid.uuid4().hex[:12].upper()}"
+        # In a real integration, we generate a unique transaction reference
+        tx_ref = f"UTIL-{uuid.uuid4().hex[:12].upper()}"
         
-        # Create transaction record as 'pending' initially in a real system
-        # Here we immediately mark as 'success' to simplify the MVP flow
+        # Create a pending transaction record
         transaction = Transaction.objects.create(
             customer=customer,
             amount=amount,
-            payment_status='success', 
-            payment_reference=payment_reference
+            payment_status='pending', 
+            payment_reference=tx_ref
         )
-        
-        # Mark corresponding bill as paid
-        bill = Bill.objects.filter(customer=customer, status='unpaid').first()
-        if bill:
-            # If payment covers at least the amount due, mark as paid
-            if amount >= float(bill.amount_due):
-                bill.status = 'paid'
-                bill.save()
-            else:
-                # Handle partial payment if needed (out of scope for MVP?)
-                pass
         
         return Response({
             'success': True,
-            'message': 'Payment processed successfully via PayChangu (Simulated)',
-            'redirect_url': 'http://localhost:5173/dashboard?status=success', # Simulated return
-            'transaction': TransactionSerializer(transaction).data,
-            'bill_status': 'paid' if bill and bill.status == 'paid' else 'unpaid',
-        }, status=status.HTTP_201_CREATED)
+            'message': 'Payment initiated',
+            'config': {
+                'public_key': settings.PAYCHANGU_PUBLIC_KEY,
+                'tx_ref': tx_ref,
+                'amount': amount,
+                'currency': 'MWK',
+                'customer': {
+                    'email': f"{customer.account_number}@utility.mw", # Placeholder email
+                    'first_name': customer.name.split(' ')[0],
+                    'last_name': customer.name.split(' ')[-1] if ' ' in customer.name else '',
+                },
+                'customization': {
+                    'title': 'Utility Bill Payment',
+                    'description': f'Payment for Account {customer.account_number}',
+                }
+            }
+        }, status=status.HTTP_200_OK)
+        
+    except Customer.DoesNotExist:
+        return Response({
+            'success': False,
+            'message': 'Customer not found'
+        }, status=status.HTTP_404_NOT_FOUND)
+    except (ValueError, TypeError):
+        return Response({
+            'success': False,
+            'message': 'Invalid amount'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def verify_payment(request):
+    """
+    Verify payment with PayChangu after checkout.
+    POST /api/verify-payment/
+    Expected body: {tx_ref}
+    """
+    tx_ref = request.data.get('tx_ref')
+    
+    if not tx_ref:
+        return Response({
+            'success': False,
+            'message': 'tx_ref is required'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # 1. Call PayChangu Verification API
+        headers = {
+            'Authorization': f'Bearer {settings.PAYCHANGU_SECRET_KEY}',
+            'Accept': 'application/json',
+        }
+        verify_url = f"{settings.PAYCHANGU_BASE_URL}/verify-payment/{tx_ref}"
+        
+        response = requests.get(verify_url, headers=headers)
+        res_data = response.json()
+
+        if response.status_code == 200 and res_data.get('status') == 'success':
+            # 2. Update transaction status
+            try:
+                transaction = Transaction.objects.get(payment_reference=tx_ref)
+                transaction.payment_status = 'success'
+                transaction.save()
+                
+                # 3. Mark corresponding bill as paid
+                bill = Bill.objects.filter(customer=transaction.customer, status='unpaid').first()
+                if bill:
+                    # Verify amount matches (optional but recommended)
+                    paid_amount = float(res_data.get('data', {}).get('amount', 0))
+                    if paid_amount >= float(bill.amount_due):
+                        bill.status = 'paid'
+                        bill.save()
+                
+                return Response({
+                    'success': True,
+                    'message': 'Payment verified successfully',
+                    'transaction': TransactionSerializer(transaction).data,
+                    'bill_status': 'paid' if bill and bill.status == 'paid' else 'unpaid'
+                })
+            except Transaction.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'message': 'Transaction record not found'
+                }, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({
+                'success': False,
+                'message': res_data.get('message', 'Verification failed')
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     except Customer.DoesNotExist:
         return Response({

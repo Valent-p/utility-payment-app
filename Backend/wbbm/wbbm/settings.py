@@ -145,3 +145,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10
 }
+
+# Paychangu Configuration
+PAYCHANGU_PUBLIC_KEY = "pub-test-OicWu1F6wk60cDLM2E0FyLoAtVTJxo9o"
+PAYCHANGU_SECRET_KEY = "sec-test-VOw4QSqhNVNT5uRtMYLvFGVrL9MGDHZu"
+PAYCHANGU_BASE_URL = "https://api.paychangu.com"
